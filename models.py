@@ -1,31 +1,29 @@
 images = {
     'schema': {
         'image': {'type': 'media'},
-        'collection': {
-            'type': 'objectid',
-            'data_relation': {
-                'resource': 'collections',
-                'field': '_id',
-                'embeddable': True,
-            }
-        }
     },
-    'resource_methods': ['GET', 'POST', 'DELETE'],
-    'item_methods': ['GET', 'DELETE', 'PATCH']
 }
 
 collections = {
     'schema': {
-        'name': {'type': 'string', 'minlength': 3, 'maxlength': 50},
+        'name': {'type': 'string'},
         'class_code': {'type': 'string', 'maxlength': 5, 'unique': True},
-    },
-    'resource_methods': ['GET', 'POST', 'DELETE'],
-    'item_methods': ['GET', 'DELETE', 'PATCH']
+        'images': {
+            'type': 'list',
+            'schema': {
+                'type': 'objectid',
+                'data_relation': {
+                    'resource': 'images',
+                    'embeddable': True,
+                }
+            }
+        },
+    }
 }
 
 networks = {
     'schema': {
-        'name': {'type': 'string', 'maxlength': 50},
+        'name': {'type': 'string'},
         'collections': {
             'type': 'list',
             'schema': {
@@ -38,15 +36,19 @@ networks = {
         },
         'trained': {'type': 'media'}
     },
-    'resource_methods': ['GET', 'POST', 'DELETE'],
-    'item_methods': ['GET', 'DELETE', 'PATCH']
 }
 
 operations = {
     'schema': {
-        'name': {'type': 'string', 'maxlength': 50},
+        'name': {'type': 'string'},
         'step': {'type': 'float'},
+        'network': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'networks',
+                'field': '_id',
+                'embeddable': True,
+            }
+        },
     },
-    'resource_methods': ['GET', 'POST', 'DELETE'],
-    'item_methods': ['GET', 'DELETE', 'PATCH']
 }
