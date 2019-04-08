@@ -34,6 +34,17 @@ networks = {
                 }
             }
         },
+        'last_training_operation': {
+            'type': 'dict',
+            'schema': {
+                'type': 'objectid',
+                'data_relation': {
+                    'resource': 'operations',
+                    'field': '_id',
+                    'embeddable': True
+                }
+            }
+        },
         'trained': {'type': 'media'}
     },
 }
@@ -41,7 +52,12 @@ networks = {
 operations = {
     'schema': {
         'name': {'type': 'string'},
-        'step': {'type': 'float'},
+        'step': {'type': 'string'},
+        'status': {
+            'type': 'string', 
+            'allowed': ['started', 'pending', 'failed', 'finished'],
+            'default': 'started'
+        },
         'network': {
             'type': 'objectid',
             'data_relation': {
